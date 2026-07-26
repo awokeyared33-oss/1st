@@ -21,6 +21,7 @@ data class MainUiState(
     val showFilterSheet: Boolean = false,
     val showNotificationSheet: Boolean = false,
     val showFabQuickAction: Boolean = false,
+    val showOnboarding: Boolean = true,
     val notifications: List<NotificationModel> = emptyList(),
     val minRatingFilter: Double = 0.0,
     val selectedPriceFilter: String = "All",
@@ -120,5 +121,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.update { currentState ->
             currentState.copy(notifications = currentState.notifications.map { it.copy(isRead = true) })
         }
+    }
+
+    fun completeOnboarding() {
+        _uiState.update { it.copy(showOnboarding = false) }
+    }
+
+    fun openOnboarding() {
+        _uiState.update { it.copy(showOnboarding = true) }
     }
 }

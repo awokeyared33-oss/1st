@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "EduLearn"
+rootProject.name = "Billionaire Mindset"
 
 include(":app")

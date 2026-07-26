@@ -33,3 +33,8 @@ val CatYellowIcon = Color(0xFFEAB308)
 val CatOrangeBg = Color(0xFFFFF7ED)
 val CatOrangeIcon = Color(0xFFF97316)
 
+val SuccessGreen = Color(0xFF10B981)
+val DangerRed = Color(0xFFEF4444)
+val LightBlueGlow = Color(0xFFE6F2FA)
+val InactivePillBg = Color(0xFFF3F4F6)
+

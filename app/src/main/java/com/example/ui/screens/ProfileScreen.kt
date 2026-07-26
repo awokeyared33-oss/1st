@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Help
@@ -40,6 +41,7 @@ fun ProfileScreen(
     courses: List<CourseModel>,
     onCourseClick: (CourseModel) -> Unit,
     onFavoriteToggle: (String) -> Unit,
+    onReplayOnboarding: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val favoriteCourses = courses.filter { it.isFavorite }
@@ -175,6 +177,12 @@ fun ProfileScreen(
                     colors = CardDefaults.cardColors(containerColor = Color.White)
                 ) {
                     Column {
+                        ProfileSettingTile(
+                            icon = Icons.Default.AutoAwesome,
+                            title = "Replay Wealth Vault Onboarding",
+                            onClick = onReplayOnboarding
+                        )
+                        Divider(color = BackgroundLight)
                         ProfileSettingTile(icon = Icons.Default.Person, title = "Edit Profile Info")
                         Divider(color = BackgroundLight)
                         ProfileSettingTile(icon = Icons.Default.Lock, title = "Security & Password")
@@ -211,11 +219,15 @@ private fun ProfileStatItem(value: String, label: String) {
 }
 
 @Composable
-private fun ProfileSettingTile(icon: ImageVector, title: String) {
+private fun ProfileSettingTile(
+    icon: ImageVector,
+    title: String,
+    onClick: () -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { }
+            .clickable { onClick() }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

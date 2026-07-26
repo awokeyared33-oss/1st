@@ -38,72 +38,79 @@ class MainActivity : ComponentActivity() {
 fun EduLearnApp(viewModel: MainViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            CustomBottomNavBar(
-                currentTab = uiState.currentTab,
-                onTabSelected = { tab -> viewModel.selectTab(tab) },
-                onFabClick = { viewModel.showFabQuickAction(true) }
-            )
-        }
-    ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            when (uiState.currentTab) {
-                NavTab.HOME -> {
-                    HomeScreen(
-                        greeting = uiState.greetingText,
-                        userName = uiState.userName,
-                        searchQuery = uiState.searchQuery,
-                        unreadNotifications = uiState.notifications.any { !it.isRead },
-                        categories = viewModel.categories,
-                        selectedCategoryId = uiState.selectedCategoryId,
-                        promoBanners = viewModel.promoBanners,
-                        courses = uiState.courses,
-                        onSearchQueryChange = { query -> viewModel.setSearchQuery(query) },
-                        onMenuClick = { viewModel.showFilterSheet(true) },
-                        onNotificationClick = { viewModel.showNotificationSheet(true) },
-                        onFilterClick = { viewModel.showFilterSheet(true) },
-                        onCategoryClick = { category -> viewModel.selectCategory(category.id) },
-                        onCourseClick = { course -> viewModel.openCourseDetail(course) },
-                        onFavoriteToggle = { courseId -> viewModel.toggleFavorite(courseId) },
-                        onSeeAllClick = { viewModel.selectTab(NavTab.COURSE) }
-                    )
-                }
-                NavTab.COURSE -> {
-                    CoursesScreen(
-                        searchQuery = uiState.searchQuery,
-                        categories = viewModel.categories,
-                        selectedCategoryId = uiState.selectedCategoryId,
-                        selectedPriceFilter = uiState.selectedPriceFilter,
-                        minRatingFilter = uiState.minRatingFilter,
-                        courses = uiState.courses,
-                        onSearchQueryChange = { query -> viewModel.setSearchQuery(query) },
-                        onCategoryClick = { category -> viewModel.selectCategory(category.id) },
-                        onCourseClick = { course -> viewModel.openCourseDetail(course) },
-                        onFavoriteToggle = { courseId -> viewModel.toggleFavorite(courseId) },
-                        onFilterClick = { viewModel.showFilterSheet(true) }
-                    )
-                }
-                NavTab.HISTORY -> {
-                    HistoryScreen(
-                        courses = uiState.courses,
-                        onCourseClick = { course -> viewModel.openCourseDetail(course) }
-                    )
-                }
-                NavTab.PROFILE -> {
-                    ProfileScreen(
-                        userName = uiState.userName,
-                        courses = uiState.courses,
-                        onCourseClick = { course -> viewModel.openCourseDetail(course) },
-                        onFavoriteToggle = { courseId -> viewModel.toggleFavorite(courseId) }
-                    )
-                }
+    if (uiState.showOnboarding) {
+        OnboardingScreen(
+            onCompleteOnboarding = { viewModel.completeOnboarding() },
+            onSkip = { viewModel.completeOnboarding() }
+        )
+    } else {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            bottomBar = {
+                CustomBottomNavBar(
+                    currentTab = uiState.currentTab,
+                    onTabSelected = { tab -> viewModel.selectTab(tab) },
+                    onFabClick = { viewModel.showFabQuickAction(true) }
+                )
             }
+        ) { innerPadding ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
+                when (uiState.currentTab) {
+                    NavTab.HOME -> {
+                        HomeScreen(
+                            greeting = uiState.greetingText,
+                            userName = uiState.userName,
+                            searchQuery = uiState.searchQuery,
+                            unreadNotifications = uiState.notifications.any { !it.isRead },
+                            categories = viewModel.categories,
+                            selectedCategoryId = uiState.selectedCategoryId,
+                            promoBanners = viewModel.promoBanners,
+                            courses = uiState.courses,
+                            onSearchQueryChange = { query -> viewModel.setSearchQuery(query) },
+                            onMenuClick = { viewModel.showFilterSheet(true) },
+                            onNotificationClick = { viewModel.showNotificationSheet(true) },
+                            onFilterClick = { viewModel.showFilterSheet(true) },
+                            onCategoryClick = { category -> viewModel.selectCategory(category.id) },
+                            onCourseClick = { course -> viewModel.openCourseDetail(course) },
+                            onFavoriteToggle = { courseId -> viewModel.toggleFavorite(courseId) },
+                            onSeeAllClick = { viewModel.selectTab(NavTab.COURSE) }
+                        )
+                    }
+                    NavTab.COURSE -> {
+                        CoursesScreen(
+                            searchQuery = uiState.searchQuery,
+                            categories = viewModel.categories,
+                            selectedCategoryId = uiState.selectedCategoryId,
+                            selectedPriceFilter = uiState.selectedPriceFilter,
+                            minRatingFilter = uiState.minRatingFilter,
+                            courses = uiState.courses,
+                            onSearchQueryChange = { query -> viewModel.setSearchQuery(query) },
+                            onCategoryClick = { category -> viewModel.selectCategory(category.id) },
+                            onCourseClick = { course -> viewModel.openCourseDetail(course) },
+                            onFavoriteToggle = { courseId -> viewModel.toggleFavorite(courseId) },
+                            onFilterClick = { viewModel.showFilterSheet(true) }
+                        )
+                    }
+                    NavTab.HISTORY -> {
+                        HistoryScreen(
+                            courses = uiState.courses,
+                            onCourseClick = { course -> viewModel.openCourseDetail(course) }
+                        )
+                    }
+                    NavTab.PROFILE -> {
+                        ProfileScreen(
+                            userName = uiState.userName,
+                            courses = uiState.courses,
+                            onCourseClick = { course -> viewModel.openCourseDetail(course) },
+                            onFavoriteToggle = { courseId -> viewModel.toggleFavorite(courseId) },
+                            onReplayOnboarding = { viewModel.openOnboarding() }
+                        )
+                    }
+                }
 
             // Modal Course Detail Sheet
             uiState.selectedCourse?.let { course ->
@@ -154,4 +161,5 @@ fun EduLearnApp(viewModel: MainViewModel) {
             }
         }
     }
+}
 }

@@ -1,6 +1,6 @@
 {
-  "name": "EduLearn",
-  "description": "Interactive educational learning app with course browsing, category discovery, lesson tracking, and custom bookmarks.",
+  "name": "Billionaire Mindset",
+  "description": "Billionaire Mindset app for acquiring high-value skills, high-income opportunities, jobs, and wealth-building streams.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

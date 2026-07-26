@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Book
+import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.Book
+import androidx.compose.material.icons.outlined.AttachMoney
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
@@ -68,14 +68,14 @@ fun CustomBottomNavBar(
                     testTag = "nav_home"
                 )
 
-                // Course Tab
+                // Earn Tab
                 NavItem(
-                    label = "Course",
-                    activeIcon = Icons.Filled.Book,
-                    inactiveIcon = Icons.Outlined.Book,
+                    label = "Earn",
+                    activeIcon = Icons.Filled.AttachMoney,
+                    inactiveIcon = Icons.Outlined.AttachMoney,
                     isSelected = currentTab == NavTab.COURSE,
                     onClick = { onTabSelected(NavTab.COURSE) },
-                    testTag = "nav_course"
+                    testTag = "nav_earn"
                 )
 
                 // Space in middle for FAB
