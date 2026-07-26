@@ -1,0 +1,6 @@
+{
+  "name": "EduLearn",
+  "description": "Interactive educational learning app with course browsing, category discovery, lesson tracking, and custom bookmarks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
